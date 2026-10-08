@@ -17,5 +17,6 @@ Write-Host 'Ставлю...'
 Start-Process $exe -ArgumentList '/S' -Wait
 Remove-Item $exe -ErrorAction SilentlyContinue
 $app = Join-Path $env:LOCALAPPDATA 'Programs\FSTQ\FSTQ.exe'
-if (Test-Path $app) { Write-Host "Готово: FSTQ $($rel.tag_name). Запускаю."; Start-Process $app }
+# запускаем через explorer — без прав администратора: иначе Windows не даёт перетаскивать файлы из Проводника (UIPI)
+if (Test-Path $app) { Write-Host "Готово: FSTQ $($rel.tag_name). Запускаю."; Start-Process explorer.exe -ArgumentList "`"$app`"" }
 else { Write-Host 'Установлено. Запусти FSTQ из меню «Пуск».' }
